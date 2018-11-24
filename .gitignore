@@ -1,0 +1,28 @@
+/target/
+/work/
+/logs/
+
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### Python ###
+/__pycache__/
