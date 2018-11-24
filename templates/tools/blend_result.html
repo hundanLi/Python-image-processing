@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if title %}
+            {{ title }} - 图像处理
+        {% else %}
+            Python-图像处理结果
+        {% endif %}
+    </title>
+
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/result.css">
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+
+        <div>
+            <h3>图像混叠</h3>
+            <form action="{{ url_for('tools_bp.blend_img') }}" method="post">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>混叠系数:
+                            <input type="number" name="alpha" value="{{ olddata }}" min="0.0" max="1.0" step="0.1" required>
+                        </label>
+                    </div>
+
+                </div>
+                <input type="hidden" name="file1" value="{{ file1 }}" required>
+                <input type="hidden" name="file2" value="{{ file2 }}" required>
+
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary">调整参数</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <a href="{{ url_for(back) }}">返回</a>
+            <a href="/">返回首页</a>
+        </div>
+    </div>
+    <div class="row" style="align-items: center">
+        <div class="col-md-5 col-xs-5">
+            <div>
+                原始图像: <br>
+                <img src="/static/images/{{ file1 }}" width="500"> <br>
+                <img src="/static/images/{{ file2 }}" width="500">
+            </div>
+        </div>
+
+        <div class="col-md-5 col-xs-5">
+            <div style="margin-left: 20px">
+                处理结果: <a href="/download/{{ res_filename }}" target="_blank">点击下载</a> <br>
+                <img src="/static/images/{{ res_filename }}?time={{ time }}" width="500">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/static/bootstrap-3.3.7/js/bootstrap.js"></script>
+<script type="text/javascript" src="/static/js/result.js"></script>
+
+</body>
+</html>

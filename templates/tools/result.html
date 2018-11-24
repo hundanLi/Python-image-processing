@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if title %}
+            {{ title }} - 图像处理
+        {% else %}
+            Python-图像处理结果
+        {% endif %}
+    </title>
+
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/result.css">
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+
+        {# 缩放图像 #}
+        {% if back and back.endswith('resize_img') %}
+            <h3>缩放图像</h3>
+            <form action="{{ url_for('tools_bp.resize_img') }}" method="post">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>缩放比例
+                            <input type="number" min="0.1" step="0.1" name="proportion" value="{{ olddata }}" required>
+                        </label>
+                    </div>
+
+                </div>
+                <input type="hidden" name="filename" value="{{ filename }}" required>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary">调整参数</button>
+                </div>
+            </form>
+        {% elif back and back.endswith('mosaic_img') %}
+            <h3>打马赛克</h3>
+
+            <form action="{{ url_for('tools_bp.mosaic_img') }}" method="post">
+
+                {% with elements = olddata.split('#') %}
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>x0:
+                                <input type="number" name="startx" value="{{ elements[0] }}" min="0" step="1" required>
+                            </label>
+                            <label>y0:
+                                <input type="number" name="starty" value="{{ elements[1] }}" min="0" step="1" required>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>x1:
+                                <input type="number" name="endx" value="{{ elements[2] }}" min="0" step="1" required>
+                            </label>
+                            <label>y1:
+                                <input type="number" name="endy" value="{{ elements[3] }}" min="0" step="1" required>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>粒度:
+                                <input type="number" name="g" value="{{ elements[4] }}" min="5" step="1" required>
+                            </label>
+                        </div>
+                        <input type="hidden" name="filename" value="{{ filename }}" required>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary">调整参数</button>
+                    </div>
+
+                {% endwith %}
+
+            </form>
+        {% endif %}
+
+
+        <div class="col-md-2">
+            <a href="{{ url_for(back) }}">返回</a>
+            <a href="/">返回首页</a>
+        </div>
+    </div>
+    <div class="row" style="align-items: center">
+        <div class="col-md-5 col-sm-12">
+            <div>
+                原始图像: <br>
+                <img src="/static/images/{{ filename }}" width="500">
+            </div>
+        </div>
+
+        <div class="col-md-5 col-sm-12">
+            <div style="margin-left: 20px">
+                处理结果: <a href="/download/{{ res_filename }}" target="_blank">点击下载</a> <br>
+                {% if back.endswith('resize_img') %}
+                    <img src="/static/images/{{ res_filename }}?time={{ time }}">
+                {% else %}
+                    <img src="/static/images/{{ res_filename }}?time={{ time }}" width="500">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/static/bootstrap-3.3.7/js/bootstrap.js"></script>
+<script type="text/javascript" src="/static/js/result.js"></script>
+
+</body>
+</html>

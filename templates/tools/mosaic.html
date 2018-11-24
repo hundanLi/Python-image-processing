@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h2>打马赛克</h2>
+    <form action="{{ url_for('tools_bp.mosaic_img') }}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>原始图像:</label>
+            <input type="file" name="image" required>
+        </div>
+
+        <div class="form-group">
+            <label>指定矩形区域始点(左上角点)</label> <br>
+            <label>x0:
+                <input type="number" name="startx" value="200" min="0" step="5" required>
+            </label>
+            <label>y0:
+                <input type="number" name="starty" value="200" min="0" step="5" required>
+            </label>
+        </div>
+        <div class="form-group">
+            <label>指定矩形区域终点(右下角点)</label> <br>
+            <label>x1:
+                <input type="number" name="endx" value="400" min="10" step="5" required>
+            </label>
+            <label>y1:
+                <input type="number" name="endy" value="400" min="10" step="5" required>
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label>粒度:
+                <input type="number" name="g" value="20" min="10" step="1" required>
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">确定</button>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block body %}
+    <h2>图像水印</h2>
+    <form class="mask-type logo" action="{{ url_for('tools_bp.water_mask_img') }}" method="post"
+          enctype="multipart/form-data">
+        <div class="form-group">
+            <label>图像:</label>
+            <input type="file" name="image1" required>
+            <input class="type" type="hidden" name="type" value="logo">
+        </div>
+
+        <div class="form-group">
+            <label>logo水印:</label>
+            <input type="file" name="image2" required> <br>
+        </div>
+        <button type="submit" class="btn btn-success">确定</button>
+        <hr>
+        <button type="button" class="btn btn-primary select-mode" onclick="mask_type('text')">文字水印
+        </button>
+    </form>
+
+    <form style="display: none" class="mask-type text" action="{{ url_for('tools_bp.water_mask_img') }}" method="post"
+          enctype="multipart/form-data">
+        <div class="form-group">
+            <label>图像:</label>
+            <input type="file" name="image1" required>
+            <input class="type" type="hidden" name="type" value="text">
+        </div>
+        <div class="form-group">
+            <label>文字水印</label>
+            <label>文字内容:
+                <input type="text" name="text" value="Logo" required>
+            </label> <br>
+            <label>颜色:
+                <select name="color" required>
+                    <option value="red">红</option>
+                    <option value="green">绿</option>
+                    <option value="blue">蓝</option>
+                    <option value="orange">红</option>
+                    <option value="yellow">黄</option>
+                    <option value="yellowgreen">黄绿</option>
+                    <option value="gray">灰</option>
+                    <option value="black">黑</option>
+                    <option value="white">白</option>
+                </select>
+            </label> <br>
+            <label>字体大小:
+                <input type="number" name="font_size" value="80" step="1" min="10" max="150" required>
+            </label> <br>
+            <label>起点位置
+                X: <input type="number" name="x" value="100" min="0" step="1" required>
+                Y: <input type="number" name="y" value="100" min="0" step="1" required>
+            </label>
+        </div>
+        <button type="submit" class="btn btn-success">确定</button>
+        <hr>
+        <button type="button" class="btn btn-primary select-mode" onclick="mask_type('logo')">Logo水印
+        </button>
+    </form>
+
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript" src="/static/js/water_mask.js"></script>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if title %}
+            {{ title }} - 图像处理
+        {% else %}
+            Python - 图像处理
+        {% endif %}
+    </title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7/css/bootstrap.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+            <h2>Python 图像处理实践</h2>
+            <h3><a href="{{ url_for('filter_bp.image_filter') }}">图像滤镜</a></h3>
+            <h3><a href="{{ url_for('filter_bp.image_enhance') }}">图像增强</a></h3>
+            <h3><a href="{{ url_for('filter_bp.image_kernel') }}">自定义卷积核</a></h3>
+            <h3><a href="{{ url_for('tools_bp.resize_img') }}">缩放图像</a></h3>
+            <h3><a href="{{ url_for('tools_bp.mosaic_img') }}">打马赛克</a></h3>
+            <h3><a href="{{ url_for('tools_bp.blend_img') }}">图像混叠</a></h3>
+            <h3><a href="{{ url_for('tools_bp.water_mask_img') }}">图像水印</a></h3>
+            <hr>
+            <h4>Developed by <a href="http://www.lzlbog.club">hundan li</a></h4>
+        </div>
+        <div class="col-md-4" style="margin-top: 50px">
+            <h3>参考文献</h3>
+            <h4><a href="https://pythonguidecn.readthedocs.io/zh/latest/" target="_blank">Python最佳实践指南</a></h4>
+            <h4><a href="http://flask.pocoo.org/docs/1.0/" target="_blank">Flask Documentation</a></h4>
+            <h4><a href="https://dormousehole.readthedocs.io/en/latest/" target="_blank">Flask Documentation zh-CN</a>
+            </h4>
+            <h4><a href="https://pillow.readthedocs.io/en/3.0.x/index.html" target="_blank">Pillow Documentation</a>
+            </h4>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/static/bootstrap-3.3.7/js/bootstrap.js"></script>
+</body>
+</html>

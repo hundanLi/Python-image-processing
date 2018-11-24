@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if title %}
+            {{ title }} - 图像处理
+        {% else %}
+            Python-图像处理结果
+        {% endif %}
+    </title>
+
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/result.css">
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+
+        <div>
+            <h3>图像水印</h3>
+            {% with elements = olddata.split('#') %}
+
+                <form action="{{ url_for('tools_bp.water_mask_img') }}" method="post">
+                    <div class="col-md-5">
+                        {% if file2 == None %}
+                            <h4>文字水印</h4>
+                            <input type="hidden" name="file1" value="{{ file1 }}" required>
+                            <div class="form-group">
+                                <label>文字内容:
+                                    <input type="text" name="text" value="{{ elements[0] }}" required>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label>颜色:
+                                    <select name="color" required>
+                                        <option value="red">红</option>
+                                        <option value="green">绿</option>
+                                        <option value="blue">蓝</option>
+                                        <option value="orange">红</option>
+                                        <option value="yellow">黄</option>
+                                        <option value="yellowgreen">黄绿</option>
+                                        <option value="gray">灰</option>
+                                        <option value="black">黑</option>
+                                        <option value="white">白</option>
+                                    </select>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label>字体大小:
+                                    <input type="number" name="font_size" value="{{ elements[2] }}" step="1" min="10"
+                                           max="150" required>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>起点位置
+                                    X: <input type="number" name="x" value="{{ elements[3] }}" min="0" step="1"
+                                              required>
+                                    Y: <input type="number" name="y" value="{{ elements[4] }}" min="0" step="1"
+                                              required>
+                                </label>
+                            </div>
+
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary">调整参数</button>
+                    </div>
+                </form>
+            {% endwith %}
+        </div>
+        <div class="col-md-2">
+            <a href="{{ url_for(back) }}">返回</a>
+            <a href="/">返回首页</a>
+        </div>
+    </div>
+    <div class="row" style="align-items: center">
+        <div class="col-md-5 col-sm-12">
+            <div>
+                原始图像: <br>
+                <img src="/static/images/{{ file1 }}" width="500"> <br>
+                {% if file2 %}
+                    <img src="/static/images/{{ file2 }}" width="500">
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-5 col-sm-12">
+            <div style="margin-left: 20px">
+                处理结果: <a href="/download/{{ res_filename }}" target="_blank">点击下载</a> <br>
+                <img src="/static/images/{{ res_filename }}?time={{ time }}" width="500">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/static/bootstrap-3.3.7/js/bootstrap.js"></script>
+<script type="text/javascript" src="/static/js/result.js"></script>
+
+</body>
+</html>
